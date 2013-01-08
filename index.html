@@ -1,0 +1,90 @@
+<!doctype html>
+
+<!--[if lt IE 7 ]> <html class="ie ie6 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!-- the "no-js" class is for Modernizr. -->
+
+<head data-template-set="html5-reset">
+
+	<meta charset="utf-8">
+	
+	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>ClassTraQ - jQuery Edition</title>
+	
+	<meta name="ClassTraQ" content="">
+	<meta name="A little gadget to keep track of your classes" content="">
+	
+	<meta name="google-site-verification" content="">
+	
+	<meta name="author" content="Frob the Builder">
+	<meta name="Copyright" content="Copyright Frob 2012. No Rights Reserved.">
+
+	<meta name="DC.title" content="Project Name">
+	<meta name="DC.subject" content="What you're about.">
+	<meta name="DC.creator" content="Who made this site.">
+	
+	<!--  Mobile Viewport Fix -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scaleable=no" />
+
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<!-- This is the traditional favicon. -->
+		 
+	<!-- <link rel="apple-touch-icon" href="img/apple-touch-icon.png"> -->
+	<!-- The is the icon for iOS's Web Clip. 114x114 -->
+	
+	<!-- CSS: screen, mobile & print are all in the same file -->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+<body>
+
+	<div class="wrapper" data-role="page">
+		<div class="headbar" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+			<h1 style="display: block; float: left; margin-left: 20px">ClassTra<span style="font-size: 10px !important">j</span>Q</h1>
+			<div data-role="controlgroup" style="margin-top: 2px" class="ui-btn-right headbuttons" data-type="horizontal">
+				<div data-role="button" class="switchbutton" data-mini="true">A</div>
+				<div data-role="button" class="addbutton" data-icon="plus" data-iconpos="notext"></div>
+			</div>
+		</div>
+		<div class="mainarea" data-role="content">
+			<ul data-role="listview" class="classlist"></ul>
+			<div class="debug"></div>
+		</div>
+		<div class="footbar" data-role="footer" data-position="fixed" data-tap-toggle="false">
+			<h1 class="currenttime">6:66 AM</h1>
+		</div>
+
+		<div class="addpop ui-content" data-transition="slideup" data-role="popup" data-overlay-theme="a">
+			<label for="classnameinput">Name</label>
+			<input type="text" class="classnameinput" name="classnameinput" />
+			
+			<label for="classstarttimeinput">Start Time</label>
+			<input type="time" class="classstarttimeinput" name="classstarttimeinput" />
+
+			<label for="classendtimeinput">End Time</label>
+			<input type="time" class="classendtimeinput" name="classendtimeinput" />
+			
+			<div data-role="button" class="finalizeadd">Add</div>
+		</div>
+
+		<div class="errorpop ui-content" data-role="popup">
+			<p>Invalid input.</p>
+			<div class="closeerror" data-role="button">Okay</div>
+		</div>
+	</div>
+
+	<script src="js/functions.js"></script>
+	<script src="js/classlist.js"></script>
+	<script src="js/date.js"></script>
+</body>
+</html>

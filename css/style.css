@@ -1,0 +1,23 @@
+.classlist .time
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.currenttime
+{
+	float: left;
+}
+
+.headbuttons .ui-btn
+{
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+.headbuttons .ui-btn .ui-btn-inner
+{
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+}

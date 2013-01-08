@@ -1,0 +1,12 @@
+{
+	"a":[
+		{"class":"Chemistry","time":"11:30"},
+		{"class":"Chemistry","time":"11:30"},
+		{"class":"Chemistry","time":"11:30"}
+	],
+	"b":[
+		{"class":"Chemistry","time":"11:30"},
+		{"class":"Chemistry","time":"11:30"},
+		{"class":"Chemistry","time":"11:30"}
+	]
+}
