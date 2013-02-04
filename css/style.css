@@ -1,3 +1,13 @@
+.headbar
+{
+	height: 50px;
+}
+
+.headbar h1
+{
+	margin-top: 15px !important;
+}
+
 .classlist .time
 {
 	margin-top: 5px;
@@ -9,13 +19,13 @@
 	float: left;
 }
 
-.headbuttons .ui-btn
+.chromeless .ui-btn
 {
 	background: none !important;
 	border: none !important;
 	box-shadow: none !important;
 }
-.headbuttons .ui-btn .ui-btn-inner
+.chromeless .ui-btn .ui-btn-inner
 {
 	background: none !important;
 	border: none !important;

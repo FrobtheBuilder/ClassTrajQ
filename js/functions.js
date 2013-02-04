@@ -1,7 +1,10 @@
+reader = "http://classtrajq.vacau.com/ss/reader.php";
+writer = "http://classtrajq.vacau.com/ss/writer.php";
 $( document ).bind( "mobileinit", function() {
     // Make your jQuery Mobile framework configuration changes here!
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
+    $.extend($.mobile.zoom, {locked:true,enabled:false});
 });
 
 $(document).bind('pageinit', function() {
@@ -23,7 +26,7 @@ $(".finalizeadd").bind("mousedown", function() {
 	if (classname != "" && starttime != "" && endtime != "") {
 		roster.appendToA(new singleClass(classname, starttime, endtime));
 		console.log(JSON.stringify(roster));
-		$.post("ss/writer.php", { varia: JSON.stringify(roster) }).success(function(data) {
+		$.post(writer, { varia: JSON.stringify(roster) }).success(function(data) {
 			console.log(data);
 			getClasses();
 			$(".classlist").listview('refresh');
@@ -51,7 +54,7 @@ $(".switchbutton").bind("mousedown", function() {
 
 
 function getClasses() {
-	$.post("ss/reader.php", function(data) {
+	$.post(reader, function(data) {
 		console.log(data);
 		var checker = jQuery.parseJSON(data);
 		if(checker.a != undefined) {
