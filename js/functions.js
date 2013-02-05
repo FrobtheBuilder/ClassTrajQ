@@ -54,20 +54,29 @@ $(".switchbutton").bind("mousedown", function() {
 
 
 function getClasses() {
-	$.post(reader, function(data) {
-		console.log(data);
-		var checker = jQuery.parseJSON(data);
-		if(checker.a != undefined) {
-			roster.a = checker.a;
-			roster.b = checker.b;
-		}
-		else {
-			console.log("Empty Classlist Response - Add something!");
-			roster.a = [];
-			roster.b = [];
-		}
-		
-		addClasses(roster);
+	$.ajax({
+		url: reader,
+		type: "POST",
+		dataType: 'jsonp', 
+		success:function(json){
+			// do stuff with json (in this case an array)
+			alert("Success");
+			console.log(data);
+			var checker = json;
+			if(checker.a != undefined) {
+				roster.a = json.a;
+				roster.b = json.b;
+			}
+			else {
+				console.log("Empty Classlist Response - Add something!");
+				roster.a = [];
+				roster.b = [];
+			}
+			addClasses(roster);
+     	},
+     	error:function(){
+        	alert("Error");
+		},
 	});
 }
 
