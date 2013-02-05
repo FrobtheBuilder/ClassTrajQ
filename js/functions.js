@@ -26,10 +26,14 @@ $(".finalizeadd").bind("mousedown", function() {
 	if (classname != "" && starttime != "" && endtime != "") {
 		roster.appendToA(new singleClass(classname, starttime, endtime));
 		console.log(JSON.stringify(roster));
-		$.post(writer, { varia: JSON.stringify(roster) }).success(function(data) {
-			console.log(data);
-			getClasses();
-			$(".classlist").listview('refresh');
+		$.ajax({
+			url: writer,
+			data: {varia: JSON.stringify(roster)},
+			success: function(data) {
+				console.log(data);
+				getClasses();
+				$(".classlist").listview('refresh');
+			}
 		});
 		$( ".addpop" ).popup("close");
 		$(".classnameinput").val("");
@@ -56,12 +60,11 @@ $(".switchbutton").bind("mousedown", function() {
 function getClasses() {
 	$.ajax({
 		url: reader,
-		type: "POST",
+		type: "GET",
 		dataType: 'jsonp', 
 		success:function(json){
 			// do stuff with json (in this case an array)
-			alert("Success");
-			console.log(data);
+			console.log(json);
 			var checker = json;
 			if(checker.a != undefined) {
 				roster.a = json.a;
