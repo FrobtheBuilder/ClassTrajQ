@@ -11,18 +11,18 @@ $(document).bind('pageinit', function() {
 	roster = new classList();
 	getClasses();
 	$(".classlist").listview('refresh');
-})
+});
 
 
 $(".addbutton").bind("mousedown", function() {
 	$( ".addpop" ).popup( "open" );
-})
+});
 
 $(".finalizeadd").bind("mousedown", function() {
 
 	var classname = $(".classnameinput").val();
 	var starttime = $(".classstarttimeinput").val();
-	var endtime = $(".classendtimeinput").val()
+	var endtime = $(".classendtimeinput").val();
 	if (classname != "" && starttime != "" && endtime != "") {
 		roster.appendToA(new singleClass(classname, starttime, endtime));
 		console.log(JSON.stringify(roster));
@@ -30,7 +30,7 @@ $(".finalizeadd").bind("mousedown", function() {
 			console.log(data);
 			getClasses();
 			$(".classlist").listview('refresh');
-		})
+		});
 		$( ".addpop" ).popup("close");
 		$(".classnameinput").val("");
 		$(".classtimeinput").val("");
@@ -40,17 +40,17 @@ $(".finalizeadd").bind("mousedown", function() {
 		$( ".errorpop" ).popup( "open" );
 	}
 
-})
+});
 
 $(".errorclose").bind("mousedown", function() {
 	$( ".errorpop" ).popup( "close" );
 	$( ".addpop" ).popup( "open" );
-})
+});
 
 $(".switchbutton").bind("mousedown", function() {
 	getClasses();
 	$(".classlist").listview('refresh');
-})
+});
 
 
 function getClasses() {
@@ -68,7 +68,7 @@ function getClasses() {
 		}
 		
 		addClasses(roster);
-	})
+	});
 }
 
 
@@ -83,8 +83,8 @@ function addClasses(jsonclass) {
 function addElements(classlist) {
 	for (var i=0; i<classlist.length; i++) {
 		var start = new Date();
-		start = Date.parse(classlist[i].startTime)
-		end = Date.parse(classlist[i].endTime)
+		start = Date.parse(classlist[i].startTime);
+		end = Date.parse(classlist[i].endTime);
 		console.log(start.toString("hh:mm tt"));
 		$(".classlist").append("<li>" + '<a href=".html">' + classlist[i].class + '<p class="time">' + start.toString("hh:mm tt") + " - " + end.toString("hh:mm tt") + '</p></a></li>');
 	}
