@@ -9,8 +9,7 @@ $( document ).bind( "mobileinit", function() {
 
 $(document).bind('pageinit', function() {
 	roster = new classList();
-	read();
-	sync();
+	getClasses();
 	$(".classlist").listview('refresh');
 });
 
@@ -27,7 +26,15 @@ $(".finalizeadd").bind("mousedown", function() {
 	if (classname != "" && starttime != "" && endtime != "") {
 		roster.appendToA(new singleClass(classname, starttime, endtime));
 		console.log(JSON.stringify(roster));
-
+		$.ajax({
+			url: writer,
+			data: {varia: JSON.stringify(roster)},
+			dataType: 'jsonp', 
+			success: function(data) {
+				getClasses();
+				$(".classlist").listview('refresh');
+			}
+		});
 		$( ".addpop" ).popup("close");
 		$(".classnameinput").val("");
 		$(".classtimeinput").val("");
@@ -45,46 +52,37 @@ $(".errorclose").bind("mousedown", function() {
 });
 
 $(".switchbutton").bind("mousedown", function() {
-	read();
+	getClasses();
 	$(".classlist").listview('refresh');
 });
 
 
-function sync() {
-	console.log(JSON.stringify(roster))
+function getClasses() {
 	$.ajax({
-		url: writer,
-		data: {varia: JSON.stringify(roster)},
+		url: reader,
+		type: "GET",
 		dataType: 'jsonp', 
-		success: function(data) {
-			read();
-			console.log(data);
-		}
+		success:function(json){
+			// do stuff with json (in this case an array)
+			console.log(json);
+			var checker = json;
+			if(checker.a != undefined) {
+				roster.a = json.a;
+				roster.b = json.b;
+			}
+			else {
+				console.log("Empty Classlist Response - Add something!");
+				roster.a = [];
+				roster.b = [];
+			}
+			addClasses(roster);
+     	},
+     	error:function(){
+        	alert("Error");
+		},
 	});
 }
 
-function read(){
-	$.ajax({
-		url: reader,
-		dataType: 'jsonp',
-		success: function(serversidelist) {
-			// do stuff with json (in this case an array)
-			console.log(serversidelist);
-			roster.a = serversidelist.a;
-			roster.b = serversidelist.b;
-			addClasses(roster);
-     	},
-	})
-}
-
-function initsslist() {
-	var empty = new classList();
-	$.ajax({
-		url: writer,
-		dataType: 'jsonp',
-		data: {varia: empty}
-	})
-}
 
 function addClasses(jsonclass) {
 	$(".classlist").html("");
@@ -93,7 +91,6 @@ function addClasses(jsonclass) {
 	addElements(aday);
 	
 }
-
 
 function addElements(classlist) {
 	for (var i=0; i<classlist.length; i++) {
@@ -107,7 +104,7 @@ function addElements(classlist) {
 }
 
 setInterval(function () {
-	sync();
+	getClasses();
 	$(".classlist").listview('refresh');
 }, 5000)
 
