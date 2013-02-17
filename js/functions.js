@@ -1,9 +1,3 @@
-reader = "http://98.219.8.9/public/ClassTrajQ/ss/reader.php";
-writer = "http://98.219.8.9/public/ClassTrajQ/ss/writer.php";
-login = "http://98.219.8.9/public/ClassTrajQ/ss/login.php";
-
-//reader = "http://frobthebuilder.byethost24.com/ClassTrajQ/ss/reader.php";
-//writer = "http://frobthebuilder.byethost24.com/ClassTrajQ/ss/writer.php"
 $( document ).bind( "mobileinit", function() {
     // Make your jQuery Mobile framework configuration changes here!
     $.support.cors = true;

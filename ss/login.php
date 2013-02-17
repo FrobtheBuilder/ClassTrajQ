@@ -14,12 +14,14 @@ else if ($_GET['action'] == "logout") {
 }
 
 function test() {
-	//$returned = array("loggedin" => true, "user" => $_SESSION)
+	
 	if (isset($_SESSION['user'])) {
-		return '{"loggedin":true, "user":"'.$_SESSION['user'].'", "session":"'.session_id().'"}';
+		$returned = array("loggedin" => true, "user" => $_SESSION['user'], "session" => session_id());
+		return json_encode($returned);
 	}
 	else {
-		return '{"loggedin":false, "user":"", "session":""}';
+		$returned = array("loggedin" => false, "user" => "", "session" => "");
+		return json_encode($returned);
 	}
 }
 
@@ -36,7 +38,7 @@ function set() {
 	}
 	$_SESSION['workingdir'] = $directory;
 	$_SESSION['user'] = $user;
-	$response = array("user" => $_SESSION['user'], "session" => session_id());
+	$response = array(success => true, "user" => $_SESSION['user'], "session" => session_id());
 	echo jsonp(json_encode($response), $_GET['callback']);
 }
 ?>

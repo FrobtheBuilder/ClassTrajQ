@@ -1,5 +1,3 @@
-login = "http://98.219.8.9/public/ClassTrajQ/ss/login.php";
-
 $(document).bind('pageinit', function() {
 	$(".submit").bind("mousedown", function() {
 		console.log("pressed");

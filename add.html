@@ -49,55 +49,12 @@
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 
 	<script src="js/constants.js"></script>
-	<script src="js/logincheck.js"></script>
 	<link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
 
 	<div class="wrapper" data-role="page">
-		<div class="headbar" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
-			<h1 style="display: block; float: left; margin-left: 20px">ClassTra<span style="font-size: 10px !important">j</span>Q</h1>
-			<div data-role="controlgroup" style="margin-top: 5px" class="ui-btn-right chromeless" data-type="horizontal">
-				<div data-role="button" class="user" data-mini="true">USER</div>
-				<div data-role="button" class="switch" data-mini="true">A</div>
-				<div data-role="button" class="addbutton" data-icon="plus" data-iconpos="notext"></div>
-				<div data-role="button" class="menubutton" data-icon="grid" data-iconpos="notext"></div>
-			</div>
-		</div>
-		<div class="mainarea" data-role="content">
-			<ul data-role="listview" class="classlist"></ul>
-			<div class="debug"></div>
-		</div>
-		<div class="footbar" data-role="footer" data-position="fixed" data-tap-toggle="false">
-			<h1 class="currenttime">6:66 AM</h1>
-		</div>
-
-		<div data-role="popup" class="menupop ui-content" data-position-to=".menubutton">
-			<ul data-role="listview" class="menulist">
-				<li><a class="logout">Logout</a></li>
-				<li><a class="switch">Switch Day</a></li>
-			</ul>
-		</div>
-
-		<div class="addpop ui-content" data-transition="slideup" data-role="popup" data-overlay-theme="a">
-			<label for="classnameinput">Name</label>
-			<input type="text" class="classnameinput" name="classnameinput" />
-			
-			<label for="classstarttimeinput">Start Time</label>
-			<input type="text" class="classstarttimeinput" data-role="datebox" data-options='{"mode": "timeflipbox"}' name="classstarttimeinput" />
-
-			<label for="classendtimeinput">End Time</label>
-			<input type="time" class="classendtimeinput" name="classendtimeinput" />
-			
-			<div data-role="button" class="finalizeadd">Add</div>
-		</div>
-
-		<div class="errorpop ui-content" data-role="popup">
-			<p>Invalid input.</p>
-			<div class="closeerror" data-role="button">Okay</div>
-		</div>
-	</div>
 
 	<script src="js/functions.js"></script>
 	<script src="js/classlist.js"></script>

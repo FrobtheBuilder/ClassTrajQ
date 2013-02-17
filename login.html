@@ -42,6 +42,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<script src="js/constants.js"></script>
 	<script src="js/login.js"></script>
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/login.css" />
@@ -55,9 +56,13 @@
 		</div>
 		<div class="mainarea" data-role="content">
 			<div class="login ui-shadow ui-content ui-dialog">
-				<label for="basic">User:</label>
-	    		<input type="text" name="name" class="user" value=""  />
-	    		<div data-role="button" class="submit">Submit</div>
+				<div data-role="fieldcontain" class="ui-hide-label">
+					<label for="name" class="ui-hidden-accessible">User:</label>
+		    		<input type="text" name="name" class="user" value="" placeholder="User"/>
+		    		<label for="password" class="ui-hidden-accessible">Password: </label>
+     				<input type="password" data-clear-btn="false" name="password-1" id="password-1" value="" autocomplete="off">
+		    		<div data-role="button" class="submit">Submit</div>
+		    	</div>
 	    	</div>
 		</div>
 	</div>

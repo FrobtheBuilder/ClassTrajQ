@@ -1,5 +1,3 @@
-login = "http://98.219.8.9/public/ClasstrajQ/ss/login.php";
-
 $(document).bind('pageinit', function() {
 	$.ajax({
 		url: login,
@@ -7,6 +5,10 @@ $(document).bind('pageinit', function() {
 		data: {action: "test"},
 		success: function(response) {
 			console.log(response);
+			$(".user").html(response.user);
+			//$(".user").buttonMarkup({ mini: true });
+			$(".user").button();
+			$(".user").button('refresh');
 			if (response.loggedin == false) {
 				window.location = "login.html";
 			}
