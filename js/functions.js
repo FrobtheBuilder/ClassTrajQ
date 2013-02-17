@@ -5,13 +5,15 @@ $( document ).bind( "mobileinit", function() {
     $.extend($.mobile.zoom, {locked:true,enabled:false});
 });
 
-$(document).bind('pageinit', function() {
+$(document).bind('pageshow', function() {
 	roster = new classList();
-	read(true);
+	read(roster, true);
 	$(".classlist").listview('refresh');
 
 	$(".addbutton").bind("mousedown", function() {
-		$( ".addpop" ).popup( "open" );
+		write(roster, false);
+		window.location = "add.html"
+		//$.mobile.changePage('add.html', {transition: 'pop', /*role: 'dialog'*/});   
 	});
 
 	$(".menubutton").bind("mousedown", function() {
@@ -39,8 +41,8 @@ $(document).bind('pageinit', function() {
 		if (classname != "" && starttime != "" && endtime != "") {
 			roster.appendToA(new singleClass(classname, starttime, endtime));
 			console.log(JSON.stringify(roster));
+			$('.ui-dialog').dialog('close')
 
-			$( ".addpop" ).popup("close");
 			$(".classnameinput").val("");
 			$(".classtimeinput").val("");
 		}
@@ -57,12 +59,12 @@ $(document).bind('pageinit', function() {
 	});
 
 	$(".switchbutton").bind("mousedown", function() {
-		read();
+		read(roster, true);
 		$(".classlist").listview('refresh');
 	});
 
 	setInterval(function () {
-		write(true);
+		write(roster, true);
 		$(".classlist").listview('refresh');
 	}, 5000)
 
@@ -81,41 +83,7 @@ $(document).bind('pageinit', function() {
 
 
 
-function write(andread) {
-	console.log(JSON.stringify(roster))
-	$.ajax({
-		url: writer,
-		data: {clientclasses: JSON.stringify(roster)},
-		dataType: 'jsonp', 
-		success: function(data) {
-			if (andread)
-			{
-				read(false);
-			}
-			console.log(data);
-		}
-	});
-}
 
-function read(andwrite){
-	$.ajax({
-		url: reader,
-		dataType: 'jsonp',
-		success: function(serversidelist) {
-			// do stuff with json (in this case an array)
-			console.log(serversidelist);
-			if (andwrite) {
-				write(false);
-			}
-			if (serversidelist === null) {
-				write(false);
-			}
-			roster.a = serversidelist.a;
-			roster.b = serversidelist.b;
-			addClasses(roster);
-		},
-	})
-}
 
 function initsslist() {
 	var empty = new classList();

@@ -53,11 +53,23 @@
 </head>
 
 <body>
+	<div class="wrapper" data-role="dialog" class="ui-dialog-contain">
+		<div class="ui-content" data-transition="slideup" data-role="content">
+			<label for="classnameinput">Name</label>
+			<input type="text" class="classnameinput" name="classnameinput" />
+			
+			<label for="classstarttimeinput">Start Time</label>
+			<input type="text" class="classstarttimeinput" data-role="datebox" data-options='{"mode": "timeflipbox"}' name="classstarttimeinput" />
 
-	<div class="wrapper" data-role="page">
-
-	<script src="js/functions.js"></script>
+			<label for="classendtimeinput">End Time</label>
+			<input type="time" class="classendtimeinput" data-role="datebox" data-options='{"mode": "timeflipbox"}' name="classendtimeinput" />
+			
+			<div data-role="button" class="finalizeadd">Add</div>
+		</div>
+	</div>
 	<script src="js/classlist.js"></script>
+	<script src="js/io.js"></script>
+	<script src="js/add.js"></script>
 	<script src="js/date.js"></script>
 </body>
 </html>

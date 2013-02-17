@@ -10,7 +10,7 @@ $(document).bind('pageinit', function() {
 			$(".user").button();
 			$(".user").button('refresh');
 			if (response.loggedin == false) {
-				window.location = "login.html";
+				$.mobile.changePage("login.html");
 			}
 		}
 	})
