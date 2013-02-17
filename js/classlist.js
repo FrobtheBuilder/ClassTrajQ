@@ -2,8 +2,8 @@ function classList() {
 	this.a = new Array();
 	this.b = new Array();
 
-	this.a = [""];
-	this.b = [""];
+	this.a = [];
+	this.b = [];
 
 
 	this.appendToA = function(classtoadd) {

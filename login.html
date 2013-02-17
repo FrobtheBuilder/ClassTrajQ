@@ -42,57 +42,26 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-	<script src="js/logincheck.js"></script>
+	<script src="js/login.js"></script>
 	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/login.css" />
 </head>
 
 <body>
 
-	<div class="wrapper" data-role="page">
+	<div class="wrapper" data-role="page" data-rel="dialog">
 		<div class="headbar" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
-			<h1 style="display: block; float: left; margin-left: 20px">ClassTra<span style="font-size: 10px !important">j</span>Q</h1>
-			<div data-role="controlgroup" style="margin-top: 5px" class="ui-btn-right chromeless" data-type="horizontal">
-				<div data-role="button" class="switch" data-mini="true">A</div>
-				<div data-role="button" class="addbutton" data-icon="plus" data-iconpos="notext"></div>
-				<div data-role="button" class="menubutton" data-icon="grid" data-iconpos="notext"></div>
-			</div>
+			<h1>Login / Register</h1>
 		</div>
 		<div class="mainarea" data-role="content">
-			<ul data-role="listview" class="classlist"></ul>
-			<div class="debug"></div>
-		</div>
-		<div class="footbar" data-role="footer" data-position="fixed" data-tap-toggle="false">
-			<h1 class="currenttime">6:66 AM</h1>
-		</div>
-
-		<div data-role="popup" class="menupop ui-content" data-position-to=".menubutton">
-			<ul data-role="listview" class="menulist">
-				<li><a class="logout">Logout</a></li>
-				<li><a class="switch">Switch Day</a></li>
-			</ul>
-		</div>
-
-		<div class="addpop ui-content" data-transition="slideup" data-role="popup" data-overlay-theme="a">
-			<label for="classnameinput">Name</label>
-			<input type="text" class="classnameinput" name="classnameinput" />
-			
-			<label for="classstarttimeinput">Start Time</label>
-			<input type="time" class="classstarttimeinput" name="classstarttimeinput" />
-
-			<label for="classendtimeinput">End Time</label>
-			<input type="time" class="classendtimeinput" name="classendtimeinput" />
-			
-			<div data-role="button" class="finalizeadd">Add</div>
-		</div>
-
-		<div class="errorpop ui-content" data-role="popup">
-			<p>Invalid input.</p>
-			<div class="closeerror" data-role="button">Okay</div>
+			<div class="login ui-shadow ui-content ui-dialog">
+				<label for="basic">User:</label>
+	    		<input type="text" name="name" class="user" value=""  />
+	    		<div data-role="button" class="submit">Submit</div>
+	    	</div>
 		</div>
 	</div>
 
-	<script src="js/functions.js"></script>
-	<script src="js/classlist.js"></script>
 	<script src="js/date.js"></script>
 </body>
 </html>

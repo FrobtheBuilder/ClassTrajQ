@@ -1,10 +1,10 @@
 <?php
-	$callback = '';
-    if (isset($_GET['callback']))
-    {
-        $callback = filter_var($_GET['callback'], FILTER_SANITIZE_STRING);
-    }
-	$thefile = fopen(dirname(__FILE__)."/profiles/frob/c.json", "r+");
-	$content = fread($thefile, filesize(dirname(__FILE__)."/profiles/frob/c.json"));
-	echo $callback . '(' . $content . ');';
+	session_start();
+	include "callback.php";
+	$thefile = fopen($_SESSION['workingdir']."/c.json", "r+");
+	$content = fread($thefile, filesize($_SESSION['workingdir']."/c.json"));
+	$json = json_decode($content);
+	$response = json_encode($json);
+	header('Content-Type: text/javascript');
+	echo jsonp($content, $_GET['callback']);
 ?>
