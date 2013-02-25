@@ -12,7 +12,7 @@ $(".finalizeadd").bind("mousedown", function() {
 	var classname = $(".classnameinput").val();
 	var starttime = $(".classstarttimeinput").val();
 	var endtime = $(".classendtimeinput").val();
-	if (classname != "" && starttime != "" && endtime != "") {
+	if (classname != "" && starttime != "" && endtime != "" ) {
 		if ($('input[type=radio]:checked').attr("class") === "a") {
 			roster.appendToA(new singleClass(classname, starttime, endtime));
 		}

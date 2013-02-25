@@ -46,7 +46,6 @@ $(document).on('pageshow', function() {
 	
 
 	$(".addbutton").on("mousedown", function() {
-		io.write(roster, false);
 		window.location = "add.html"
 		//$.mobile.changePage('add.html', {transition: 'pop', /*role: 'dialog'*/});   
 	});
@@ -73,15 +72,10 @@ $(document).on('pageshow', function() {
 		switchday();
 	});
 
-	setInterval(function () {
-		io.dump();
-		$(".classlist").listview('refresh');
-	}, 5000)
-
 	setInterval(function() {
 		$(".currenttime").html(new Date().toString("hh:mm tt"))
 		list.addClasses(roster, day);
-	}, 1000)
+	}, 10000)
 
 
 });
@@ -139,14 +133,15 @@ list = {
 
 	refresh: function() {
 		$(".classlist").listview('refresh');
-		io.write(roster, false);
+		io.read(roster, false);
 	}
 }
 
 function deleteClass(arg) {
 	console.log($(arg));
 	target = $(arg).attr('class').split(' ')[1];
-	roster.removeFromA(target);
+	if (day == "a") { roster.removeFromA(target) } else { roster.removeFromB(target) };	
+	io.write(roster, false);
 	list.addClasses(roster, day);
 }
 

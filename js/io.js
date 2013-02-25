@@ -14,6 +14,7 @@ io = {
 				clientclasses: JSON.stringify(target)
 			},
 			success: function(data) {
+				console.log("Written to server");
 				if (andread)
 				{
 					io.read(target, false);
@@ -30,6 +31,7 @@ io = {
 			},
 			success: function(serversidelist) {
 				// do stuff with json (in this case an array)
+				console.log("Read from server");
 				if (andwrite) {
 					io.write(target, false);
 				}
