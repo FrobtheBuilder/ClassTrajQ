@@ -1,17 +1,23 @@
+$.ajaxSetup({
+  	url: backend,
+  	dataType: 'jsonp',
+  	type: 'GET'
+});
+
 $(document).bind('pageinit', function() {
+	
+});
+
+function logincheck() {
 	$.ajax({
-		url: login,
-		dataType: 'jsonp',
-		data: {action: "test"},
+		data: {
+			action: "testlogin"
+		},
 		success: function(response) {
-			console.log(response);
 			$(".user").html(response.user);
-			//$(".user").buttonMarkup({ mini: true });
-			$(".user").button();
-			$(".user").button('refresh');
 			if (response.loggedin == false) {
-				$.mobile.changePage("login.html");
+				window.location = "login.html";
 			}
 		}
 	})
-});
+}

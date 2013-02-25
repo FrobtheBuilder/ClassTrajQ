@@ -25,9 +25,20 @@
 	border: none !important;
 	box-shadow: none !important;
 }
+
 .chromeless .ui-btn .ui-btn-inner
 {
 	background: none !important;
 	border: none !important;
 	box-shadow: none !important;
+}
+
+.maincontrols div
+{
+	height: 34px !important;
+}
+
+.current
+{
+	//background-color: green !important;
 }

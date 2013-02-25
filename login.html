@@ -42,28 +42,33 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	
+	
 	<script src="js/constants.js"></script>
+	<script src="js/ajaxsetup.js"></script>
 	<script src="js/login.js"></script>
-	<link rel="stylesheet" href="css/style.css" />
+	
 	<link rel="stylesheet" href="css/login.css" />
 </head>
 
 <body>
 
-	<div class="wrapper" data-role="page" data-rel="dialog">
+	<div class="wrapper" data-role="dialog" data-rel="dialog">
 		<div class="headbar" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
 			<h1>Login / Register</h1>
 		</div>
 		<div class="mainarea" data-role="content">
-			<div class="login ui-shadow ui-content ui-dialog">
-				<div data-role="fieldcontain" class="ui-hide-label">
-					<label for="name" class="ui-hidden-accessible">User:</label>
-		    		<input type="text" name="name" class="user" value="" placeholder="User"/>
-		    		<label for="password" class="ui-hidden-accessible">Password: </label>
-     				<input type="password" data-clear-btn="false" name="password-1" id="password-1" value="" autocomplete="off">
-		    		<div data-role="button" class="submit">Submit</div>
-		    	</div>
-	    	</div>
+			<p>To register a new account, just enter a username and password. Unless the username is already taken, your account will automatically be created.</p>
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="name" class="ui-hidden-accessible">User:</label>
+		    	<input type="text" name="name" class="user" value="" placeholder="Username"/>
+		    	<br>
+		    	<label for="password" class="ui-hidden-accessible">Password: </label>
+     			<input type="password" placeholder="Password" data-clear-btn="false" name="password" class="password" value="" autocomplete="off">
+     			<br>
+		    	<div data-role="button" class="submit">Submit</div>
+		    </div>
+
 		</div>
 	</div>
 

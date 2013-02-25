@@ -1,35 +1,60 @@
-function write(target, andread) {
-	console.log(JSON.stringify(roster))
-	$.ajax({
-		url: writer,
-		data: {clientclasses: JSON.stringify(target)},
-		dataType: 'jsonp', 
-		success: function(data) {
-			if (andread)
-			{
-				read(target, false);
-			}
-			console.log(data);
-		}
-	});
-}
+$.ajaxSetup({
+  	url: backend,
+  	dataType: 'jsonp',
+  	type: 'GET'
+});
 
-function read(target, andwrite){
-	$.ajax({
-		url: reader,
-		dataType: 'jsonp',
-		success: function(serversidelist) {
-			// do stuff with json (in this case an array)
-			console.log(serversidelist);
-			if (andwrite) {
-				write(target, false);
+io = {
+
+	write: function(target, andread) {
+		console.log(JSON.stringify(roster))
+		var ajax = $.ajax({
+			data: {
+				action: "write",
+				clientclasses: JSON.stringify(target)
+			},
+			success: function(data) {
+				if (andread)
+				{
+					io.read(target, false);
+				}
 			}
-			if (serversidelist === null) {
-				write(target, false);
+		});
+		return ajax;
+	},
+
+	read: function(target, andwrite) {
+		var ajax = $.ajax({
+			data: {
+				action: "read"
+			},
+			success: function(serversidelist) {
+				// do stuff with json (in this case an array)
+				if (andwrite) {
+					io.write(target, false);
+				}
+				
+				if (serversidelist === null || serversidelist === undefined) {
+					io.write(target, false);
+				}
+				else{
+					target.a = serversidelist.a;
+					target.b = serversidelist.b;
+				}
+				
+			},
+		});
+		return ajax;
+	},
+
+	dump: function() {
+		$.ajax({
+			data: {
+				action: "dump"
+			},
+			success: function(response) {
+				console.log(response)
 			}
-			target.a = serversidelist.a;
-			target.b = serversidelist.b;
-			addClasses(target);
-		},
-	})
+		})
+	}
 }

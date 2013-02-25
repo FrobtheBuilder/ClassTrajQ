@@ -1,3 +1,27 @@
+$.ajaxSetup({
+  	url: backend,
+  	dataType: 'jsonp',
+  	type: 'GET'
+});
+
+Array.prototype.move = function (old_index, new_index) {
+    if (new_index >= this.length) {
+        var k = new_index - this.length;
+        while ((k--) + 1) {
+            this.push(undefined);
+        }
+    }
+    this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+    return this; // for testing purposes
+};
+
+Array.prototype.swap = function (x,y) {
+  var b = this[x];
+  this[x] = this[y];
+  this[y] = b;
+  return this;
+}
+
 $( document ).bind( "mobileinit", function() {
     // Make your jQuery Mobile framework configuration changes here!
     $.support.cors = true;
@@ -5,26 +29,37 @@ $( document ).bind( "mobileinit", function() {
     $.extend($.mobile.zoom, {locked:true,enabled:false});
 });
 
-$(document).bind('pageshow', function() {
-	roster = new classList();
-	read(roster, true);
-	$(".classlist").listview('refresh');
 
-	$(".addbutton").bind("mousedown", function() {
-		write(roster, false);
+$(document).on('pageshow', function() {
+	logincheck();
+	roster = new classList();
+	day = 'a';
+
+	$.when(io.read(roster, false)).done(function(data) {
+		console.log(data.a);
+		sort(roster);
+		list.addClasses(roster, day);
+	})
+
+	
+	$(".classlist").listview('refresh');
+	
+
+	$(".addbutton").on("mousedown", function() {
+		io.write(roster, false);
 		window.location = "add.html"
 		//$.mobile.changePage('add.html', {transition: 'pop', /*role: 'dialog'*/});   
 	});
 
-	$(".menubutton").bind("mousedown", function() {
+	$(".menubutton").on("mousedown", function() {
 		$(".menupop").popup("open");
 	})
 
-	$(".logout").bind("mousedown", function() {
+	$(".logout").on("mousedown", function() {
 		$.ajax({
-			url: login,
-			data: {action: "logout"},
-			dataType: 'jsonp',
+			data: {
+				action: "logout"
+			},
 			success: function(response) {
 				console.log(response)
 				if (response.loggedin == false) {
@@ -33,84 +68,107 @@ $(document).bind('pageshow', function() {
 			}
 		})
 	})
-	$(".finalizeadd").bind("mousedown", function() {
 
-		var classname = $(".classnameinput").val();
-		var starttime = $(".classstarttimeinput").val();
-		var endtime = $(".classendtimeinput").val();
-		if (classname != "" && starttime != "" && endtime != "") {
-			roster.appendToA(new singleClass(classname, starttime, endtime));
-			console.log(JSON.stringify(roster));
-			$('.ui-dialog').dialog('close')
-
-			$(".classnameinput").val("");
-			$(".classtimeinput").val("");
-		}
-		else {
-			$( ".addpop" ).popup("close");
-			$( ".errorpop" ).popup( "open" );
-		}
-
-	});
-
-	$(".errorclose").bind("mousedown", function() {
-		$( ".errorpop" ).popup( "close" );
-		$( ".addpop" ).popup( "open" );
-	});
-
-	$(".switchbutton").bind("mousedown", function() {
-		read(roster, true);
-		$(".classlist").listview('refresh');
+	$(".switch").on("mousedown", function() {
+		switchday();
 	});
 
 	setInterval(function () {
-		write(roster, true);
+		io.dump();
 		$(".classlist").listview('refresh');
 	}, 5000)
 
 	setInterval(function() {
 		$(".currenttime").html(new Date().toString("hh:mm tt"))
+		list.addClasses(roster, day);
 	}, 1000)
 
 
 });
 
+list = {
+	addClasses: function(jsonclass, aorb) {
+		$(".classlist").html("");
+		var aday = jsonclass.a;
+		var bday = jsonclass.b;
+		var current = this.highlight(aorb);
+		if (aorb === 'a') {
+			this.addElements(aday, current);
+		}
+		else {
+			this.addElements(bday, current);
+		}
+	},
 
+	highlight: function(day) {
+		var currentclass = undefined;
+		if (day === "a") {
+			for (var i=0; i<roster.a.length; i++) {
+				if (Date.parse("now").compareTo(Date.parse(roster.a[i].startTime)) === 1 && Date.parse("now").compareTo(Date.parse(roster.a[i].endTime)) === -1){
+					currentclass = roster.a[i];
+				}
+			}
+		}
+		else {
+			for (var i=0; i<roster.b.length; i++) {
+				if (Date.parse("now").compareTo(Date.parse(roster.b[i].startTime)) === 1 && Date.parse("now").compareTo(Date.parse(roster.b[i].endTime)) === -1){
+					currentclass = roster.b[i];
+				}
+			}
+		}
+		return currentclass
+	},
 
+	addElements: function(classlist, currentclass) {
+		for (var i=0; i<classlist.length; i++) {
+			var start = new Date();
+			var end = new Date();
+			start = Date.parse(classlist[i].startTime);
+			end = Date.parse(classlist[i].endTime);
+			console.log(start.toString("hh:mm tt"));
+			if (currentclass != undefined && classlist[i].class === currentclass.class) {
+				$(".classlist").append('<li data-theme="b" class="current">' + '<a href="#">' + classlist[i].class + '<p class="time">' + start.toString("hh:mm tt") + " - " + end.toString("hh:mm tt") + '</p>' + '<a onclick="javascript:deleteClass(this)" class="delete '+ i +'">Delete</a>' + '</a></li>');
+			}
+			else
+			{
+				$(".classlist").append("<li>" + '<a href="#">' + classlist[i].class + '<p class="time">' + start.toString("hh:mm tt") + " - " + end.toString("hh:mm tt") + '</p>' + '<a onclick="javascript:deleteClass(this)" class="delete '+ i +'">Delete</a>' + '</a></li>');
+			}	
+		}
+		this.refresh();
+	},
 
+	refresh: function() {
+		$(".classlist").listview('refresh');
+		io.write(roster, false);
+	}
+}
 
+function deleteClass(arg) {
+	console.log($(arg));
+	target = $(arg).attr('class').split(' ')[1];
+	roster.removeFromA(target);
+	list.addClasses(roster, day);
+}
 
-
-
-
-
-
-function initsslist() {
-	var empty = new classList();
-	$.ajax({
-		url: writer,
-		dataType: 'jsonp',
-		data: {varia: empty}
+function sort(theroster) {
+	theroster.a.sort(function(a, b){
+		return Date.parse(a.startTime).compareTo(Date.parse(b.startTime))
 	})
 }
 
-function addClasses(jsonclass) {
-	$(".classlist").html("");
-	aday = jsonclass.a;
-	bday = jsonclass.b;
-	addElements(aday);
-	
-}
-
-
-function addElements(classlist) {
-	for (var i=0; i<classlist.length; i++) {
-		var start = new Date();
-		start = Date.parse(classlist[i].startTime);
-		end = Date.parse(classlist[i].endTime);
-		console.log(start.toString("hh:mm tt"));
-		$(".classlist").append("<li>" + '<a href=".html">' + classlist[i].class + '<p class="time">' + start.toString("hh:mm tt") + " - " + end.toString("hh:mm tt") + '</p></a></li>');
+function switchday() {
+	console.log("switching");
+	if (day == 'a') {
+		day = 'b';
+		$(".switchbutton").html('<span class="ui-btn-inner">B</span>');
+		$(".switchbutton").removeClass("ui-btn-up-a ui-btn-hover-a").addClass("ui-btn ui-mini ui-btn-hover-a ui-shadow").attr("data-theme", "a").attr("data-mini", "true");
 	}
-	$(".classlist").listview('refresh');
+	else {
+		day = 'a';
+		$(".switchbutton").html('<span class="ui-btn-inner">A</span>');
+	}
+	list.addClasses(roster, day);
 }
 
+function highlightcurrentclass() {
+}

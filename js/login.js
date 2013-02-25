@@ -1,19 +1,27 @@
+$.ajaxSetup({
+  	url: backend,
+  	dataType: 'jsonp',
+  	type: 'GET'
+});
+
 $(document).bind('pageinit', function() {
 	$(".submit").bind("mousedown", function() {
 		console.log("pressed");
 		username = $(".user").val();
+		password = $(".password").val();
 		$.ajax({
-			url: login,
-			dataType: 'jsonp',
 			data: {
-				action: "set",
-				user: username
+				action: "login",
+				user: username,
+				password: password,
 			},
 			success: function(data) {
 				console.log(data);
-				if (data.user !== null && data.user !== "" && data.user !== undefined)
-				{
+				if (data.success == true) {
 					window.location = "index.html";
+				}
+				else {
+					alert("Password Incorrect");
 				}
 			}
 		})

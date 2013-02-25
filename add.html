@@ -46,24 +46,34 @@
 	<link rel="stylesheet" href="css/datebox/style.css" />
 	<script src="js/datebox/datebox.core.min.js"></script>
 	<script src="js/datebox/datebox.mode.flipbox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<script src="js/datebox/datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="js/datebox/en_US.utf8.js"></script>
 
 	<script src="js/constants.js"></script>
 	<link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-	<div class="wrapper" data-role="dialog" class="ui-dialog-contain">
+	<div class="wrapper" data-theme="c" data-role="dialog">
+		<div data-role="header" data-theme="b">
+			<h1>Add a Class</h1>
+		</div>
 		<div class="ui-content" data-transition="slideup" data-role="content">
 			<label for="classnameinput">Name</label>
 			<input type="text" class="classnameinput" name="classnameinput" />
 			
 			<label for="classstarttimeinput">Start Time</label>
-			<input type="text" class="classstarttimeinput" data-role="datebox" data-options='{"mode": "timeflipbox"}' name="classstarttimeinput" />
+			<input type="text" class="classstarttimeinput" data-role="datebox" data-options='{"mode": "timebox"}' name="classstarttimeinput" />
 
 			<label for="classendtimeinput">End Time</label>
-			<input type="time" class="classendtimeinput" data-role="datebox" data-options='{"mode": "timeflipbox"}' name="classendtimeinput" />
-			
+			<input type="text" class="classendtimeinput" data-role="datebox" data-options='{"mode": "timebox"}' name="classendtimeinput" />
+			<fieldset data-role="controlgroup">
+        		<legend>Day:</legend>
+        		<input type="radio" name="radio-choice-v-2" id="radio-choice-v-2a" class="a">
+        		<label for="radio-choice-v-2a">A</label>
+        		<input type="radio" name="radio-choice-v-2" id="radio-choice-v-2b" class="b">
+        		<label for="radio-choice-v-2b">B</label>
+    		</fieldset>
 			<div data-role="button" class="finalizeadd">Add</div>
 		</div>
 	</div>
