@@ -4,24 +4,6 @@ $.ajaxSetup({
   	type: 'GET'
 });
 
-Array.prototype.move = function (old_index, new_index) {
-    if (new_index >= this.length) {
-        var k = new_index - this.length;
-        while ((k--) + 1) {
-            this.push(undefined);
-        }
-    }
-    this.splice(new_index, 0, this.splice(old_index, 1)[0]);
-    return this; // for testing purposes
-};
-
-Array.prototype.swap = function (x,y) {
-  var b = this[x];
-  this[x] = this[y];
-  this[y] = b;
-  return this;
-}
-
 $( document ).bind( "mobileinit", function() {
     // Make your jQuery Mobile framework configuration changes here!
     $.support.cors = true;
@@ -41,8 +23,7 @@ $(document).on('pageshow', function() {
 		list.addClasses(roster, day);
 	})
 
-	
-	$(".classlist").listview('refresh');
+	list.addClasses(roster, day);
 	
 
 	$(".addbutton").on("mousedown", function() {
@@ -73,8 +54,8 @@ $(document).on('pageshow', function() {
 	});
 
 	setInterval(function() {
-		$(".currenttime").html(new Date().toString("hh:mm tt"))
 		list.addClasses(roster, day);
+		$(".currenttime").html(new Date().toString("hh:mm tt"));
 	}, 10000)
 
 
@@ -165,5 +146,6 @@ function switchday() {
 	list.addClasses(roster, day);
 }
 
-function highlightcurrentclass() {
-}
+setTimeout(function() {
+	$(".currenttime").html(new Date().toString("hh:mm tt"))
+}, 2000)

@@ -4,15 +4,13 @@ $(document).bind('pageshow', function() {
 		console.log(JSON.stringify(roster));
 	})
 	console.log($("input.a").val())
-});
-
-
-$(".finalizeadd").bind("mousedown", function() {
+	$(".finalizeadd").on("mousedown", function() {
 
 	var classname = $(".classnameinput").val();
 	var starttime = $(".classstarttimeinput").val();
 	var endtime = $(".classendtimeinput").val();
-	if (classname != "" && starttime != "" && endtime != "" ) {
+	if (classname != "" && starttime != "" && endtime != "" && 
+		($('input[type=radio]:checked').attr("class") === "a" || $('input[type=radio]:checked').attr("class") === "b")) {
 		if ($('input[type=radio]:checked').attr("class") === "a") {
 			roster.appendToA(new singleClass(classname, starttime, endtime));
 		}
@@ -36,3 +34,7 @@ $(".finalizeadd").bind("mousedown", function() {
 	}
 
 });
+});
+
+
+
