@@ -7,14 +7,15 @@ $.ajaxSetup({
 io = {
 
 	write: function(target, andread) {
-		console.log(JSON.stringify(roster))
+		console.log(roster);
 		var ajax = $.ajax({
 			data: {
 				action: "write",
 				clientclasses: JSON.stringify(target)
 			},
 			success: function(data) {
-				console.log("Written to server");
+				console.log("Written to server:");
+				console.log(data);
 				if (andread)
 				{
 					io.read(target, false);
@@ -31,7 +32,8 @@ io = {
 			},
 			success: function(serversidelist) {
 				// do stuff with json (in this case an array)
-				console.log("Read from server");
+				console.log("Read from server:");
+				console.log(serversidelist);
 				if (andwrite) {
 					io.write(target, false);
 				}

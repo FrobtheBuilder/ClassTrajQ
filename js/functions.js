@@ -100,7 +100,6 @@ list = {
 			var end = new Date();
 			start = Date.parse(classlist[i].startTime);
 			end = Date.parse(classlist[i].endTime);
-			console.log(start.toString("hh:mm tt"));
 			if (currentclass != undefined && classlist[i].class === currentclass.class) {
 				$(".classlist").append('<li data-theme="b" class="current">' + '<a href="#">' + classlist[i].class + '<p class="time">' + start.toString("hh:mm tt") + " - " + end.toString("hh:mm tt") + '</p>' + '<a onclick="javascript:deleteClass(this)" class="delete '+ i +'">Delete</a>' + '</a></li>');
 			}
@@ -148,4 +147,4 @@ function switchday() {
 
 setTimeout(function() {
 	$(".currenttime").html(new Date().toString("hh:mm tt"))
-}, 2000)
+}, 1000)
